@@ -8,6 +8,7 @@
         <script src="js/kendo.all.min.js"></script>
  </head>
 <body>
+	<div id="theWholeThing">
 	<div id="myControl1">
 		<fieldset>
 			<div id="hello1">Hello World!</div>
@@ -15,7 +16,7 @@
 					data-source="someData" 
 					data-text-field="text" 
 					data-value-field="value" 
-					data-select="onSelectEvent" />
+					data-select="selectHandlers['myControl1']" />
 			<input id="start1" data-role="datepicker" />
 			<input id="finish1" data-role="datepicker" />
 		</fieldset>
@@ -27,11 +28,13 @@
 					data-source="someData" 
 					data-text-field="text" 
 					data-value-field="value" 
-					data-select="onSelectEvent" />
+					data-select="selectHandlers['myControl2']" />
 			<input id="start2" data-role="datepicker" />
 			<input id="finish2" data-role="datepicker" />
 		</fieldset>
 	</div>
+	</div>
+	
 	<script>
 		var someData = [
 			{ text: "Before", value: "0" },
@@ -39,6 +42,35 @@
 			{ text: "Range", value: "2" }
 		];
 		
+		var selectHandlers = [];
+		var index = 0;
+		
+		selectHandlers["myControl1"] = function (e) {
+			var selected = e.item.text();
+			var finishDate = $("#finish1").data("kendoDatePicker").wrapper;
+			if("Range" === selected) {
+				$("#hello1").text("The Range option has been selected.");
+				finishDate.show();
+			}
+			else {
+				$("#hello1").text("Hello World!");
+				finishDate.hide();
+			}
+		};
+		
+		selectHandlers["myControl2"] = function (e) {
+			var selected = e.item.text();
+			var finishDate = $("#finish2").data("kendoDatePicker").wrapper;
+			if("Range" === selected) {
+				$("#hello2").text("The Range option has been selected.");
+				finishDate.show();
+			}
+			else {
+				$("#hello2").text("Hello World!");
+				finishDate.hide();
+			}
+		};
+				
 		function onSelectEvent(e) {
 			var selected = e.item.text();
 			var finishDate = $("#finish1").data("kendoDatePicker").wrapper;
@@ -47,13 +79,15 @@
 				finishDate.show();
 			}
 			else {
+				$("#hello").text("Hello World!");
 				finishDate.hide();
 			}
 		};
 
 		$(document).ready(function() {
-			kendo.init($("#myControl1"));
+			kendo.init($("#theWholeThing"));
 			$("#finish1").data("kendoDatePicker").wrapper.hide();
+			$("#finish2").data("kendoDatePicker").wrapper.hide();
 		});
 	</script>
 </body>
