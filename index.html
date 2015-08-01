@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Testo Kendo</title>
+        <link href="styles/kendo.common.min.css" rel="stylesheet" />
+        <link href="styles/kendo.default.min.css" rel="stylesheet" />
+        <script src="js/jquery.min.js"></script>
+        <script src="js/kendo.all.min.js"></script>
+ </head>
+<body>
+	<div id="myControl1">
+		<fieldset>
+			<div id="hello1">Hello World!</div>
+			<input id="qualifier1" data-role="dropdownlist" 
+					data-source="someData" 
+					data-text-field="text" 
+					data-value-field="value" 
+					data-select="onSelectEvent" />
+			<input id="start1" data-role="datepicker" />
+			<input id="finish1" data-role="datepicker" />
+		</fieldset>
+	</div>	
+	<div id="myControl2">
+		<fieldset>
+			<div id="hello2">Hello World!</div>
+			<input id="qualifier2" data-role="dropdownlist" 
+					data-source="someData" 
+					data-text-field="text" 
+					data-value-field="value" 
+					data-select="onSelectEvent" />
+			<input id="start2" data-role="datepicker" />
+			<input id="finish2" data-role="datepicker" />
+		</fieldset>
+	</div>
+	<script>
+		var someData = [
+			{ text: "Before", value: "0" },
+			{ text: "After", value: "1" },
+			{ text: "Range", value: "2" }
+		];
+		
+		function onSelectEvent(e) {
+			var selected = e.item.text();
+			var finishDate = $("#finish1").data("kendoDatePicker").wrapper;
+			if("Range" === selected) {
+				$("#hello").text("The Range option has been selected.");
+				finishDate.show();
+			}
+			else {
+				finishDate.hide();
+			}
+		};
+
+		$(document).ready(function() {
+			kendo.init($("#myControl1"));
+			$("#finish1").data("kendoDatePicker").wrapper.hide();
+		});
+	</script>
+</body>
+</html>
