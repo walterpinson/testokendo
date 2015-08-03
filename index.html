@@ -16,7 +16,8 @@
 					data-source="someData" 
 					data-text-field="text" 
 					data-value-field="value" 
-					data-select="selectHandlers['myControl1']" />
+					data-select="selectHandlers['myControl1']"
+					data-bound="onDataBind" />
 			<input id="start1" data-role="datepicker" />
 			<input id="finish1" data-role="datepicker" />
 		</fieldset>
@@ -42,7 +43,7 @@
 			{ text: "After", value: "2" },
 			{ text: "Between", value: "3" }
 		];
-		
+				
 		var selectHandlers = [];
 		
 		selectHandlers["myControl1"] = function (e) {
@@ -71,23 +72,17 @@
 			}
 		};
 				
-		function onSelectEvent(e) {
-			var selected = e.item.text();
-			var finishDate = $("#finish1").data("kendoDatePicker").wrapper;
-			if("Between" === selected) {
-				$("#hello").text("The Between option has been selected.");
-				finishDate.show();
-			}
-			else {
+		function onDataBind(e) {
+			if(e.selectedIndex !== 3) {
 				$("#hello").text("Hello World!");
-				finishDate.hide();
+				$("#finish1").data("kendoDatePicker").wrapper.hide();
 			}
-		};
+		};		
 
 		$(document).ready(function() {
-			kendo.init($("#theWholeThing"));
-			$("#finish1").data("kendoDatePicker").wrapper.hide();
-			$("#finish2").data("kendoDatePicker").wrapper.hide();
+			kendo.init($("#theWholeThing"));	
+/*			$("#finish1").data("kendoDatePicker").wrapper.hide();
+			$("#finish2").data("kendoDatePicker").wrapper.hide(); */
 		});
 	</script>
 </body>
