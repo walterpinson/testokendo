@@ -19,7 +19,7 @@
 					data-select="selectHandlers['myControl1']"
 					data-bound="onDataBind" />
 			<input id="start1" data-role="datepicker" />
-			<input id="finish1" data-role="datepicker" />
+			<input id="finish1" data-role="datepicker" class="finish" />
 		</fieldset>
 	</div>	
 	<div id="myControl2">
@@ -31,7 +31,7 @@
 					data-value-field="value" 
 					data-select="selectHandlers['myControl2']" />
 			<input id="start2" data-role="datepicker" />
-			<input id="finish2" data-role="datepicker" />
+			<input id="finish2" data-role="datepicker" class="finish" />
 		</fieldset>
 	</div>
 	</div>
@@ -70,19 +70,13 @@
 				$("#hello2").text("Hello World!");
 				finishDate.hide();
 			}
-		};
-				
-		function onDataBind(e) {
-			if(e.selectedIndex !== 3) {
-				$("#hello").text("Hello World!");
-				$("#finish1").data("kendoDatePicker").wrapper.hide();
-			}
-		};		
+		};	
 
 		$(document).ready(function() {
 			kendo.init($("#theWholeThing"));	
-/*			$("#finish1").data("kendoDatePicker").wrapper.hide();
-			$("#finish2").data("kendoDatePicker").wrapper.hide(); */
+			$("input.finish").each(function(i){
+				$(this).data("kendoDatePicker").wrapper.hide();
+			});
 		});
 	</script>
 </body>
